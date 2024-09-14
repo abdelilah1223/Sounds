@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدخال وتوليد أرقام</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        #input-field {
+            width: 300px;
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #ff8566;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: #ff5733;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading">جاري تحميل الأصوات...</div>
+
+    <input type="text" id="input-field" placeholder="أدخل 10 أرقام مختلفة بين 0 و 9">
+    <button id="generate-btn">توليد أرقام عشوائية</button>
+    <button id="start-btn">تشغيل الأصوات</button>
+
+    <script>
+        const sounds = [];
+        const loadingDiv = document.getElementById('loading');
+        const inputField = document.getElementById('input-field');
+        const generateBtn = document.getElementById('generate-btn');
+        const startBtn = document.getElementById('start-btn');
+
+        function preloadSounds(callback) {
+            let loadedCount = 0;
+            const totalSounds = 10;
+            let hasError = false;
+
+            for (let i = 0; i <= 9; i++) {
+                const sound = new Audio(`sounds/${i}.mp3`);
+                sound.addEventListener('error', () => {
+                    console.error(`Error loading sound: sounds/${i}.m4a`);
+                    hasError = true;
+                });
+                sound.addEventListener('canplaythrough', () => {
+                    loadedCount++;
+                    if (loadedCount === totalSounds) {
+                        if (hasError) {
+                            console.warn('Some sounds did not load properly.');
+                        }
+                        callback();
+                    }
+                });
+                sounds.push(sound);
+            }
+        }
+
+        function playSoundsInOrder(numbers) {
+            let index = 0;
+
+            const playNextSound = () => {
+                if (index >= numbers.length) return;
+                const num = numbers[index];
+                const sound = sounds[num];
+                sound.currentTime = 0;
+
+                console.log(`Playing sound ${num}`);
+                sound.play().then(() => {
+                    sound.onended = () => {
+                        index++;
+                        playNextSound();
+                    };
+                }).catch((error) => {
+                    console.error("Error playing sound:", error);
+                    index++;
+                    playNextSound();
+                });
+            };
+
+            playNextSound();
+        }
+
+        function validateUserInput(input) {
+            const numbers = input.split('').map(Number);
+            if (numbers.length !== 10) {
+                alert('الرجاء إدخال 10 أرقام.');
+                return false;
+            }
+            const uniqueNumbers = [...new Set(numbers)];
+            // if (uniqueNumbers.length !== 10) {
+            //     alert('يجب أن تكون الأرقام غير مكررة.');
+            //     return false;
+            // }
+            return numbers;
+        }
+
+        generateBtn.addEventListener('click', () => {
+            const randomNumbers = Array.from({ length: 10 }, (_, i) => i).sort(() => Math.random() - 0.5);
+            inputField.value = randomNumbers.join('');
+        });
+
+        startBtn.addEventListener('click', () => {
+            const userInput = inputField.value;
+            const validNumbers = validateUserInput(userInput);
+            if (validNumbers) {
+                playSoundsInOrder(validNumbers);
+            }
+        });
+
+        loadingDiv.style.display = 'block';
+        preloadSounds(() => {
+            loadingDiv.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    </script>
+
+</body>
+</html>
