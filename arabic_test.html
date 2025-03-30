@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم العربية - النسخة المعدلة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --warning-color: #f39c12;
+            --text-color: #2c3e50;
+            --light-gray: #ecf0f1;
+            --dark-gray: #bdc3c7;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab i {
+            font-size: 1.1rem;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .letter {
+            font-size: 4rem;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-color);
+            min-height: 100px;
+        }
+        
+        .word {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-color);
+            min-height: 80px;
+        }
+        
+        .sentence {
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-color);
+            min-height: 100px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 150px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background-color: var(--dark-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        button i {
+            font-size: 1.1rem;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .feedback {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .feedback.success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .feedback.error {
+            background-color: var(--error-color);
+            color: white;
+        }
+        
+        .feedback.warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .progress {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .timer {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--primary-color);
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--dark-gray);
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .test-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .visible {
+            display: block;
+        }
+        
+        .test-container {
+            display: none;
+        }
+        
+        .test-container.active {
+            display: block;
+        }
+        
+        .practice-container {
+            display: block;
+        }
+        
+        .practice-container.hidden {
+            display: none;
+        }
+        
+        .icon-btn {
+            min-width: auto;
+            padding: 10px 15px;
+        }
+        
+        @media (max-width: 600px) {
+            .letter {
+                font-size: 3rem;
+            }
+            
+            .word {
+                font-size: 2rem;
+            }
+            
+            .sentence {
+                font-size: 1.4rem;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+            
+            .tab {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-language"></i> تعلم العربية</h1>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('letters')">
+                <i class="fas fa-font"></i> الحروف
+            </div>
+            <div class="tab" onclick="showTab('words')">
+                <i class="fas fa-align-left"></i> الكلمات
+            </div>
+            <div class="tab" onclick="showTab('sentences')">
+                <i class="fas fa-paragraph"></i> الجمل
+            </div>
+        </div>
+        
+        <div class="card">
+            <!-- قسم الحروف -->
+            <div id="letters-section" class="content-section active">
+                <div class="practice-container" id="letter-practice">
+                    <div class="letter" id="current-letter">أ</div>
+                    <div class="progress">الحرف <span id="letter-counter">1</span> من 28</div>
+                    
+                    <div class="controls">
+                        <button onclick="playCurrentItem('letter')" id="play-letter-btn">
+                            <i class="fas fa-volume-up"></i> سماع الحرف
+                        </button>
+                        <button onclick="nextLetter()">
+                            <i class="fas fa-arrow-left"></i> التالي
+                        </button>
+                        <button onclick="prevLetter()">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button onclick="startTest('letter')" class="btn-success">
+                            <i class="fas fa-play-circle"></i> بدء الاختبار
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="letter-test" class="test-container">
+                    <div class="letter hidden" id="test-letter"></div>
+                    <div class="timer">الوقت المتبقي: <span id="letter-timer">01:00</span></div>
+                    
+                    <input type="text" class="test-input" id="letter-input" placeholder="اكتب الحرف الذي تسمعه">
+                    
+                    <div class="controls">
+                        <button onclick="playTestItem('letter')" class="icon-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button onclick="checkAnswer('letter')" id="check-letter-btn" class="btn-success">
+                            <i class="fas fa-check"></i> تحقق
+                        </button>
+                        <button onclick="endTest('letter')" class="btn-warning">
+                            <i class="fas fa-stop"></i> إنهاء الاختبار
+                        </button>
+                    </div>
+                    
+                    <div class="feedback" id="letter-feedback"></div>
+                    <div class="progress">السؤال <span id="letter-test-counter">1</span></div>
+                </div>
+            </div>
+            
+            <!-- قسم الكلمات -->
+            <div id="words-section" class="content-section">
+                <div class="practice-container" id="word-practice">
+                    <div class="word" id="current-word">كِتَاب</div>
+                    <div class="progress">الكلمة <span id="word-counter">1</span> من 100</div>
+                    
+                    <div class="controls">
+                        <button onclick="playCurrentItem('word')" id="play-word-btn">
+                            <i class="fas fa-volume-up"></i> سماع الكلمة
+                        </button>
+                        <button onclick="nextRandomWord()">
+                            <i class="fas fa-random"></i> كلمة عشوائية
+                        </button>
+                        <button onclick="startTest('word')" class="btn-success">
+                            <i class="fas fa-play-circle"></i> بدء الاختبار
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="word-test" class="test-container">
+                    <div class="word hidden" id="test-word"></div>
+                    <div class="timer">الوقت المتبقي: <span id="word-timer">01:00</span></div>
+                    
+                    <input type="text" class="test-input" id="word-input" placeholder="اكتب الكلمة التي تسمعها">
+                    
+                    <div class="controls">
+                        <button onclick="playTestItem('word')" class="icon-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button onclick="checkAnswer('word')" id="check-word-btn" class="btn-success">
+                            <i class="fas fa-check"></i> تحقق
+                        </button>
+                        <button onclick="endTest('word')" class="btn-warning">
+                            <i class="fas fa-stop"></i> إنهاء الاختبار
+                        </button>
+                    </div>
+                    
+                    <div class="feedback" id="word-feedback"></div>
+                    <div class="progress">السؤال <span id="word-test-counter">1</span></div>
+                </div>
+            </div>
+            
+            <!-- قسم الجمل -->
+            <div id="sentences-section" class="content-section">
+                <div class="practice-container" id="sentence-practice">
+                    <div class="sentence" id="current-sentence">الْكِتَابُ عَلَى الْمَكْتَبِ</div>
+                    <div class="progress">الجملة <span id="sentence-counter">1</span> من 100</div>
+                    
+                    <div class="controls">
+                        <button onclick="playCurrentItem('sentence')" id="play-sentence-btn">
+                            <i class="fas fa-volume-up"></i> سماع الجملة
+                        </button>
+                        <button onclick="nextRandomSentence()">
+                            <i class="fas fa-random"></i> جملة عشوائية
+                        </button>
+                        <button onclick="startTest('sentence')" class="btn-success">
+                            <i class="fas fa-play-circle"></i> بدء الاختبار
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="sentence-test" class="test-container">
+                    <div class="sentence hidden" id="test-sentence"></div>
+                    <div class="timer">الوقت المتبقي: <span id="sentence-timer">01:00</span></div>
+                    
+                    <input type="text" class="test-input" id="sentence-input" placeholder="اكتب الجملة التي تسمعها">
+                    
+                    <div class="controls">
+                        <button onclick="playTestItem('sentence')" class="icon-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button onclick="checkAnswer('sentence')" id="check-sentence-btn" class="btn-success">
+                            <i class="fas fa-check"></i> تحقق
+                        </button>
+                        <button onclick="endTest('sentence')" class="btn-warning">
+                            <i class="fas fa-stop"></i> إنهاء الاختبار
+                        </button>
+                    </div>
+                    
+                    <div class="feedback" id="sentence-feedback"></div>
+                    <div class="progress">السؤال <span id="sentence-test-counter">1</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات الموقع
+        const arabicLetters = ['أ', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'];
+        
+        const arabicWords = [
+            'كِتَاب', 'قَلَم', 'مَكْتَب', 'بَيْت', 'شَجَرَة', 'سَيَّارَة', 'حَقِيبَة', 'طَاوِلَة', 'كُرْسِي', 'نافِذَة',
+            'بَاب', 'سَاعَة', 'جَوَّال', 'حَاسُوب', 'تِلْفَاز', 'ثَلَّاجَة', 'غُرْفَة', 'مَطْبَخ', 'حَمَّام', 'سَرِير',
+            'مِفْتَاح', 'مِصْبَاح', 'سِكِّين', 'شَوْكَة', 'مِلْعَقَة', 'صَحْن', 'كُوب', 'إِبْرِيق', 'سَجَّادَة', 'مِرْآة',
+            'مِكْنَسَة', 'مِكْواة', 'غَسَّالَة', 'مِجَفَّف', 'خِزَانَة', 'دُولَ��ب', 'رِفّ', 'سُلَّم', 'مِصْعَد', 'بِسْكُوت',
+            'خُبْز', 'جُبْن', 'لَبَن', 'مَاء', 'عَصِير', 'شَاي', 'قَهْوَة', 'سُكَّر', 'مِلْح', 'فُلْفُل',
+            'لَحْم', 'دَجَاج', 'سَمَك', 'أَرُزّ', 'مَعْكَرُونَة', 'خُضَار', 'فَاكِهَة', 'تُفَّاح', 'مَوْز', 'عِنَب',
+            'بُرْتُقَال', 'فَرَاوْلَة', 'خِيَار', 'طَمَاطِم', 'بَصَل', 'ثُوم', 'بَطَاطِس', 'جَزَر', 'كُرُنْب', 'خَسّ',
+            'مَلَابِس', 'قَمِيص', 'بَنْطَلُون', 'جَاكِيت', 'فُسْتَان', 'حِذَاء', 'قُبَّعَة', 'جَوْرَب', 'مِعْطَف', 'سُتْرَة',
+            'حَلْي', 'سَاعَة', 'خَاتَم', 'قِلَادَة', 'أُذُن', 'حَقِيبَة', 'نَظَّارَة', 'مِشْط', 'فُرْشَاة', 'مَعْجُون',
+            'صَابُون', 'شامْبو', 'مُنَادِيل', 'فَوطَة', 'لُوشن', 'عِطْر', 'دِهْب', 'كُحْل', 'إِسْفِنْج', 'دَلْو'
+        ];
+        
+        
+        const arabicSentences = [
+            'الْكِتَابُ عَلَى الْمَكْتَبِ',
+            'الْقَلَمُ فِي الْحَقِيبَةِ',
+            'الطِّفْلُ يَقْرَأُ كِتَابًا',
+            'الشَّمْسُ مُشْرِقَةٌ الْيَوْمَ',
+            'أَنَا أَتَعَلَّمُ اللُّغَةَ الْعَرَبِيَّةَ',
+            'الْوَلَدُ يَلْعَبُ فِي الْحَدِيقَةِ',
+            'الْبِنْتُ تَذْهَبُ إِلَى الْمَدْرَسَةِ',
+            'الْأُسْتَاذُ يُعَلِّمُ الطُّلَّابَ',
+            'الْأُمُّ تَطْبُخُ الطَّعَامَ',
+            'الْأَبُ يَقْرَأُ الْجَرِيدَةَ',
+            'الْعَائِلَةُ تَأْكُلُ مَعًا',
+            'الطَّعَامُ لَذِيذٌ الْيَوْمَ',
+            'أَشْرَبُ الْمَاءَ كُلَّ يَوْمٍ',
+            'أَنَا أُحِبُّ الْفَاكِهَةَ الطَّازِجَةَ',
+            'الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ',
+            'الْجَوُّ حَارٌ فِي الصَّيْفِ',
+            'الْبَحْرُ كَبِيرٌ وَعَمِيقٌ',
+            'الْجِبَالُ مُرْتَفِعَةٌ وَشَاهِقَةٌ',
+            'أَسْكُنُ فِي شَقَّةٍ فِي الْمَدِينَةِ',
+            'عِنْدِي كَلْبٌ صَغِيرٌ وَلَطِيفٌ',
+            'الْقِطُّ يَنَامُ عَلَى السَّرِيرِ',
+            'أَ��ْهَبُ إِلَى الْعَمَلِ كُلَّ صَبَاحٍ',
+            'أُرِيدُ أَنْ أَزُورَ الْأَقَارِبَ',
+            'الْعُطْلَةُ فِي نِهَايَةِ الْأُسْبُوعِ',
+            'أُحِبُّ السَّفَرَ إِلَى الْبِلَادِ الْجَدِيدَةِ',
+            'اللُّغَةُ الْعَرَبِيَّةُ غَنِيَّةٌ وَجَمِيلَةٌ',
+            'أَتَعَلَّمُ الْعَرَبِيَّةَ لِأَفْهَمَ الْقُرْآنَ',
+            'الْإِسْلَامُ دِينُ السَّلَامِ وَالرَّحْمَةِ',
+            'الْمَسْجِدُ بَيْتُ اللهِ فِي الْأَرْضِ',
+            'الصَّلَاةُ رِحْلَةُ الرُّوحِ إِلَى اللهِ',
+            'أَخْرُجُ مَعَ الْأَصْدِقَاءِ فِي الْمَسَاءِ',
+            'نَلْعَبُ كُرَةَ الْقَدَمِ فِي الْمَلْعَبِ',
+            'أُحِبُّ قِرَاءَةَ الْكُتُبِ الْمُفِيدَةِ',
+            'الْعِلْمُ نُورٌ وَالْجَهْلُ ظُلْمَةٌ',
+            'الْعَمَلُ الْجَادُّ يُؤَدِّي إِلَى النَّجَاحِ',
+            'الصِّحَّةُ تَاجٌ عَلَى رُءُوسِ الْأَصِحَّاءِ',
+            'الْيَوْمُ جَمِيلٌ وَنَشِيطٌ',
+            'اللَّيْلُ هَادِئٌ وَسَاكِنٌ',
+            'الْقَمَرُ مُضِيءٌ فِي السَّمَاءِ',
+            'النُّجُومُ تَلْمَعُ فِي الْعَتْمَةِ',
+            'الزُّهُورُ تُعْطِرُ الْحَدِيقَةَ',
+            'الْأَشْجَارُ تُعْطِينَا الظِّلَّ وَالْهَوَاءَ النَّقِيَّ',
+            'الطُّيُورُ تُغَرِّدُ فِي الصَّبَاحِ',
+            'الْأَسَدُ مَلِكُ الْغَابَةِ',
+            'الْفِيلُ حَيَوَانٌ ضَخْمٌ وَقَوِيٌّ',
+            'الْحِصَانُ سَرِيعٌ وَجَمِيلٌ',
+            'الْبَقَرَةُ تُعْطِينَا الْحَلِيبَ',
+            'الْخِرَافُ تَعِيشُ فِي الْحَقْلِ',
+            'الذِّئْبُ حَيَوَانٌ ذَكِيٌّ وَخَطِرٌ',
+            'الْأَرْنَبُ سَرِيعٌ وَخَجُولٌ',
+            'الْبَحْرُ يَحْتَوِي عَلَى كَثِيرٍ مِنَ الْأَسْمَاكِ',
+            'السَّمَكَةُ تَسْبَحُ فِي الْمَاءِ',
+            'الْبُطْرِيقُ يَعِيشُ فِي الْمِنْطَقَةِ الْقُطْبِيَّةِ',
+            'الْج��مَلُ سَفِينَةُ الصَّحْرَاءِ',
+            'الْعُقَابُ طَائِرٌ قَوِيٌّ وَشُجَاعٌ',
+            'الْغَزَالُ رَشِيقٌ وَجَمِيلٌ',
+            'الْفَرَاشَةُ مُلَوَّنَةٌ وَرَقِيقَةٌ',
+            'النَّحْلَةُ تَصْنَعُ الْعَسَلَ',
+            'الْعَنْكَبُوتُ يَنْسُجُ الْخُيُوطَ',
+            'الْجَرَادُ يَأْكُلُ النَّبَاتَ',
+            'الضِّفْدَعُ يَعِيشُ فِي الْمَاءِ وَعَلَى الْيَابِسَةِ',
+            'الْأَفْعَى حَيَوَانٌ خَطِرٌ وَسَامٌ',
+            'الْبَعُوضُ يَلْدَغُ وَيُزْعِجُ',
+            'الْفَأْرُ صَغِيرٌ وَسَرِيعٌ',
+            'الْقِرْدُ ذَكِيٌّ وَمُضْحِكٌ',
+            'الْبَبَّغَاءُ يَتَكَلَّمُ وَيُقَلِّدُ الْأَصْوَاتَ',
+            'الْحَمَامَةُ طَائِرُ السَّلَامِ',
+            'الْبُومَةُ تَرَى فِي اللَّيْلِ',
+            'الْخُفَّاشُ يَطِيرُ فِي الظَّلَامِ',
+            'الْكَلْبُ صَدِيقُ الْإِنْسَانِ',
+            'الْقِطُّ مُسْتَقِلٌّ وَنَظِيفٌ',
+            'الْأَرَضُ خِصْبَةٌ وَتُنْبِتُ النَّبَاتَ',
+            'الْمَطَرُ يُنْعِشُ الْأَرْضَ',
+            'النَّهْرُ يَجْرِي إِلَى الْبَحْرِ',
+            'الْبُحَيْرَةُ هَادِئَةٌ وَجَمِيلَةٌ',
+            'الشَّلَّالُ رَائِعٌ وَمُهَيْبٌ',
+            'الرِّيَاحُ تَهُبُّ فِي الْخَرِيفِ',
+            'الْعَاصِفَةُ قَوِيَّةٌ وَمُخِيفَةٌ',
+            'الضَّبَابُ يُغَطِّي الْمَدِينَةَ',
+            'الْبَرَدُ يَسْقُطُ فِي الشِّتَاءِ',
+            'الثَّلْجُ أَبْيَضٌ وَنَاعِمٌ',
+            'الْبَرْقُ يَلْمَعُ فِي السَّمَاءِ',
+            'الرَّعْدُ يُصْدِرُ صَوْتًا قَوِيًّا',
+            'الْقَوْسُ قُزَحَ مُلَوَّنٌ وَجَمِيلٌ',
+            'الْغَيْمُ يُحَجِّبُ الشَّمْسَ',
+            'الْكَوْكَبُ يُضِيءُ فِي اللَّيْلِ',
+            'الْمَجَرَّةُ كَبِيرَةٌ وَوَاسِعَةٌ',
+            'الْفَضَاءُ لَا حَدَّ لَهُ',
+            'الرَّحَلَاتُ الْفَضَائِيَّةُ مُثِيرَةٌ',
+            'الرَّائِدُ شُجَاعٌ وَمُهَنَّدِسٌ',
+            'الْقَمَرُ الصِّنَاعِيُّ يُسَاعِدُ فِي الْاتِّصَالَاتِ',
+            'الطَّائِرَةُ تَطِيرُ فِي الْجَوِّ',
+            'الْقِطَارُ يَسِيرُ عَلَى الْقَضْبَانِ',
+            'الْحَافِلَةُ تَنْقُلُ الرُّكَّابَ',
+            'السَّيَّارَةُ سَرِيعَةٌ وَمُرِيحَةٌ',
+            'الْبَاخِرَةُ تَسْبَحُ فِي الْبَحْرِ',
+            'الْغَوَّاصَةُ تَغُوصُ فِي أَعْمَاقِ الْبِحَارِ',
+            'الْجِسْرُ يَصِلُ بَيْنَ الضِّفَّتَيْنِ',
+            'الطَّرِيقُ يَصِلُ بَيْنَ الْمَدَائِنِ',
+            'الْمُدُنُ كَبِيرَةٌ وَمَزْدَحِمَةٌ',
+            'الْقُرَى هَادِئَةٌ وَجَمِيلَةٌ',
+            'الْحَضَارَةُ تَتَطَوَّرُ بِاسْتِمْرَارٍ',
+            'التَّارِيخُ يُعَلِّمُنَا الدُّرُوسَ',
+            'الْمُسْتَقْبَلُ مَلِيءٌ بِالْأَمَلِ'
+        ];
+        
+        // متغيرات التطبيق
+        let currentLetterIndex = 0;
+        let currentWordIndex = 0;
+        let currentSentenceIndex = 0;
+        let speechSynth = window.speechSynthesis;
+        let voices = [];
+        let testItems = [];
+        let currentTestItemIndex = 0;
+        let timerInterval;
+        let timeLeft = 60;
+        
+        // تهيئة الأصوات
+        function loadVoices() {
+            voices = speechSynth.getVoices();
+        }
+        
+        speechSynth.onvoiceschanged = loadVoices;
+        loadVoices();
+        
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLetter();
+            updateWord();
+            updateSentence();
+        });
+        
+        // تبديل الأقسام
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+            
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-section`).classList.add('active');
+            
+            // إيقاف أي اختبار جاري عند تبديل الأقسام
+            if (tabName !== 'letters' && document.getElementById('letter-test').classList.contains('active')) {
+                endTest('letter');
+            }
+            if (tabName !== 'words' && document.getElementById('word-test').classList.contains('active')) {
+                endTest('word');
+            }
+            if (tabName !== 'sentences' && document.getElementById('sentence-test').classList.contains('active')) {
+                endTest('sentence');
+            }
+        }
+        
+        // تشغيل العنصر الحالي (حرف/كلمة/جملة)
+        function playCurrentItem(type) {
+            const element = document.getElementById(`current-${type}`);
+            speakText(element.textContent, type);
+        }
+        
+        // تشغيل العنصر في وضع الاختبار
+        function playTestItem(type) {
+            const element = document.getElementById(`test-${type}`);
+            speakText(element.textContent, type);
+        }
+        
+        // دالة عامة للتحدث بالنص
+        function speakText(text, type) {
+            speechSynth.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = voices.find(voice => voice.lang.includes('ar')) || null;
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.lang = 'ar-SA';
+            
+            utterance.onstart = () => {
+                showFeedback(type, 'جار تشغيل الصوت...', 'success');
+            };
+            
+            utterance.onerror = () => {
+                showFeedback(type, 'حدث خطأ في تشغيل الصوت', 'error');
+            };
+            
+            speechSynth.speak(utterance);
+        }
+        
+        // التنقل بين الحروف
+        function nextLetter() {
+            currentLetterIndex = (currentLetterIndex + 1) % arabicLetters.length;
+            updateLetter();
+        }
+        
+        function prevLetter() {
+            currentLetterIndex = (currentLetterIndex - 1 + arabicLetters.length) % arabicLetters.length;
+            updateLetter();
+        }
+        
+        function updateLetter() {
+            document.getElementById('current-letter').textContent = arabicLetters[currentLetterIndex];
+            document.getElementById('letter-counter').textContent = currentLetterIndex + 1;
+        }
+        
+        // كلمات عشوائية
+        function nextRandomWord() {
+            const newIndex = Math.floor(Math.random() * arabicWords.length);
+            currentWordIndex = newIndex !== currentWordIndex ? newIndex : (newIndex + 1) % arabicWords.length;
+            updateWord();
+        }
+        
+        function updateWord() {
+            document.getElementById('current-word').textContent = arabicWords[currentWordIndex];
+            document.getElementById('word-counter').textContent = currentWordIndex + 1;
+        }
+        
+        // جمل عشوائية
+        function nextRandomSentence() {
+            const newIndex = Math.floor(Math.random() * arabicSentences.length);
+            currentSentenceIndex = newIndex !== currentSentenceIndex ? newIndex : (newIndex + 1) % arabicSentences.length;
+            updateSentence();
+        }
+        
+        function updateSentence() {
+            document.getElementById('current-sentence').textContent = arabicSentences[currentSentenceIndex];
+            document.getElementById('sentence-counter').textContent = currentSentenceIndex + 1;
+        }
+        
+        // بدء الاختبار
+        function startTest(type) {
+            // إخفاء واجهة الممارسة وإظهار واجهة الاختبار
+            document.getElementById(`${type}-practice`).classList.add('hidden');
+            document.getElementById(`${type}-test`).classList.add('active');
+            
+            // إنشاء مجموعة أسئلة عشوائية
+            testItems = [...(type === 'letter' ? arabicLetters : type === 'word' ? arabicWords : arabicSentences)];
+            shuffleArray(testItems);
+            currentTestItemIndex = 0;
+            
+            // عرض السؤال الأول
+            showTestQuestion(type);
+            
+            // بدء المؤقت
+            startTimer(type);
+        }
+        
+        // عرض سؤال الاختبار
+        function showTestQuestion(type) {
+            const testElement = document.getElementById(`test-${type}`);
+            const inputElement = document.getElementById(`${type}-input`);
+            
+            testElement.textContent = testItems[currentTestItemIndex];
+            inputElement.value = '';
+            document.getElementById(`${type}-test-counter`).textContent = currentTestItemIndex + 1;
+            document.getElementById(`${type}-feedback`).style.display = 'none';
+            
+            // تشغيل الصوت تلقائياً
+            setTimeout(() => playTestItem(type), 500);
+        }
+        function compareArabicText(text1, text2) {
+  // إزالة التشكيل (الحركات) من النصوص
+  const removeTashkeel = str => str.replace(/[\u064B-\u065F\u0610-\u061A\u0670]/g, '');
+  
+  // إزالة الأحرف الخاصة والفواصل
+  const removeSpecialChars = str => str.replace(/[،؛؟ـ’'",.!?\-]/g, '');
+  
+  // تنظيف النصوص
+  const cleanText1 = removeSpecialChars(removeTashkeel(text1)).trim();
+  const cleanText2 = removeSpecialChars(removeTashkeel(text2)).trim();
+  
+  // المقارنة بعد التنظيف
+  return cleanText1 === cleanText2;
+}
+        // التحقق من الإجابة
+        function checkAnswer(type) {
+            const userAnswer = document.getElementById(`${type}-input`).value.trim();
+            const correctAnswer = document.getElementById(`test-${type}`).textContent;
+            if (compareArabicText(userAnswer, correctAnswer)) {
+  showFeedback(type, 'إجابة صحيحة! أحسنت!', 'success');
+                setTimeout(() => {
+                    nextTestQuestion(type);
+                }, 1500);
+} else {
+                showFeedback(type, 'إجابة خاطئة. حاول مرة أخرى.', 'error');
+                playTestItem(type); // إعادة تشغيل الصوت
+            }
+        }
+        
+        // الانتقال لسؤال الاختبار التالي
+        function nextTestQuestion(type) {
+            if (currentTestItemIndex < testItems.length - 1) {
+                currentTestItemIndex++;
+                showTestQuestion(type);
+                resetTimer(type);
+            } else {
+                endTest(type);
+                showFeedback(type, 'لقد أكملت جميع أسئلة الاختبار!', 'success');
+            }
+        }
+        
+        // إنهاء الاختبار
+        function endTest(type) {
+            clearInterval(timerInterval);
+            document.getElementById(`${type}-practice`).classList.remove('hidden');
+            document.getElementById(`${type}-test`).classList.remove('active');
+            document.getElementById(`${type}-feedback`).style.display = 'none';
+        }
+        
+        // بدء المؤقت
+        function startTimer(type) {
+            timeLeft = 60;
+            updateTimerDisplay(type);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay(type);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    showFeedback(type, 'انتهى الوقت!', 'error');
+                    nextTestQuestion(type);
+                }
+            }, 1000);
+        }
+        
+        // إعادة تعيين المؤقت
+        function resetTimer(type) {
+            clearInterval(timerInterval);
+            startTimer(type);
+        }
+        
+        // تحديث عرض المؤقت
+        function updateTimerDisplay(type) {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById(`${type}-timer`).textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // عرض التغذية الراجعة
+        function showFeedback(type, message, feedbackType) {
+            const feedbackElement = document.getElementById(`${type}-feedback`);
+            feedbackElement.textContent = message;
+            feedbackElement.className = `feedback ${feedbackType}`;
+            feedbackElement.style.display = 'block';
+        }
+        
+        // خلط العناصر في المصفوفة عشوائياً
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>
