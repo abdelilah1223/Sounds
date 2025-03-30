@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلم العربية - النسخة المحسنة</title>
+    <title>تعلم العربية - الإصدار النهائي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -326,13 +326,13 @@
         </div>
         
         <div class="tabs">
-            <div class="tab active" onclick="showTab('letters')">
+            <div class="tab active" data-tab="letters">
                 <i class="fas fa-font"></i> الحروف
             </div>
-            <div class="tab" onclick="showTab('words')">
+            <div class="tab" data-tab="words">
                 <i class="fas fa-align-left"></i> الكلمات
             </div>
-            <div class="tab" onclick="showTab('sentences')">
+            <div class="tab" data-tab="sentences">
                 <i class="fas fa-paragraph"></i> الجمل
             </div>
         </div>
@@ -345,16 +345,16 @@
                     <div class="progress">الحرف <span id="letter-counter">1</span> من 28</div>
                     
                     <div class="controls">
-                        <button onclick="playCurrentItem('letter')" id="play-letter-btn">
+                        <button id="play-letter-btn">
                             <i class="fas fa-volume-up"></i> سماع الحرف
                         </button>
-                        <button onclick="nextLetter()">
+                        <button id="next-letter-btn">
                             <i class="fas fa-arrow-left"></i> التالي
                         </button>
-                        <button onclick="prevLetter()">
+                        <button id="prev-letter-btn">
                             <i class="fas fa-arrow-right"></i> السابق
                         </button>
-                        <button onclick="startTest('letter')" class="btn-success">
+                        <button id="start-letter-test-btn" class="btn-success">
                             <i class="fas fa-play-circle"></i> بدء الاختبار
                         </button>
                     </div>
@@ -367,13 +367,13 @@
                     <input type="text" class="test-input" id="letter-input" placeholder="اكتب الحرف الذي تسمعه">
                     
                     <div class="controls">
-                        <button onclick="playTestItem('letter')" class="icon-btn">
+                        <button id="play-test-letter-btn" class="icon-btn">
                             <i class="fas fa-volume-up"></i>
                         </button>
-                        <button onclick="checkAnswer('letter')" id="check-letter-btn" class="btn-success">
+                        <button id="check-letter-btn" class="btn-success">
                             <i class="fas fa-check"></i> تحقق
                         </button>
-                        <button onclick="endTest('letter')" class="btn-warning">
+                        <button id="end-letter-test-btn" class="btn-warning">
                             <i class="fas fa-stop"></i> إنهاء الاختبار
                         </button>
                     </div>
@@ -390,13 +390,13 @@
                     <div class="progress">الكلمة <span id="word-counter">1</span> من 100</div>
                     
                     <div class="controls">
-                        <button onclick="playCurrentItem('word')" id="play-word-btn">
+                        <button id="play-word-btn">
                             <i class="fas fa-volume-up"></i> سماع الكلمة
                         </button>
-                        <button onclick="nextRandomWord()">
+                        <button id="random-word-btn">
                             <i class="fas fa-random"></i> كلمة عشوائية
                         </button>
-                        <button onclick="startTest('word')" class="btn-success">
+                        <button id="start-word-test-btn" class="btn-success">
                             <i class="fas fa-play-circle"></i> بدء الاختبار
                         </button>
                     </div>
@@ -409,13 +409,13 @@
                     <input type="text" class="test-input" id="word-input" placeholder="اكتب الكلمة التي تسمعها">
                     
                     <div class="controls">
-                        <button onclick="playTestItem('word')" class="icon-btn">
+                        <button id="play-test-word-btn" class="icon-btn">
                             <i class="fas fa-volume-up"></i>
                         </button>
-                        <button onclick="checkAnswer('word')" id="check-word-btn" class="btn-success">
+                        <button id="check-word-btn" class="btn-success">
                             <i class="fas fa-check"></i> تحقق
                         </button>
-                        <button onclick="endTest('word')" class="btn-warning">
+                        <button id="end-word-test-btn" class="btn-warning">
                             <i class="fas fa-stop"></i> إنهاء الاختبار
                         </button>
                     </div>
@@ -432,13 +432,13 @@
                     <div class="progress">الجملة <span id="sentence-counter">1</span> من 100</div>
                     
                     <div class="controls">
-                        <button onclick="playCurrentItem('sentence')" id="play-sentence-btn">
+                        <button id="play-sentence-btn">
                             <i class="fas fa-volume-up"></i> سماع الجملة
                         </button>
-                        <button onclick="nextRandomSentence()">
+                        <button id="random-sentence-btn">
                             <i class="fas fa-random"></i> جملة عشوائية
                         </button>
-                        <button onclick="startTest('sentence')" class="btn-success">
+                        <button id="start-sentence-test-btn" class="btn-success">
                             <i class="fas fa-play-circle"></i> بدء الاختبار
                         </button>
                     </div>
@@ -451,13 +451,13 @@
                     <input type="text" class="test-input" id="sentence-input" placeholder="اكتب الجملة التي تسمعها">
                     
                     <div class="controls">
-                        <button onclick="playTestItem('sentence')" class="icon-btn">
+                        <button id="play-test-sentence-btn" class="icon-btn">
                             <i class="fas fa-volume-up"></i>
                         </button>
-                        <button onclick="checkAnswer('sentence')" id="check-sentence-btn" class="btn-success">
+                        <button id="check-sentence-btn" class="btn-success">
                             <i class="fas fa-check"></i> تحقق
                         </button>
-                        <button onclick="endTest('sentence')" class="btn-warning">
+                        <button id="end-sentence-test-btn" class="btn-warning">
                             <i class="fas fa-stop"></i> إنهاء الاختبار
                         </button>
                     </div>
@@ -469,12 +469,12 @@
         </div>
     </div>
 
-    <button id="support-btn" onclick="showSupportInfo()">
+    <button id="support-btn">
         <i class="fas fa-question-circle"></i> دعم العربية
     </button>
 
     <script>
-        // بيانات الموقع
+        // بيانات التطبيق
         const arabicLetters = ['أ', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'];
         
         const arabicWords = [
@@ -541,4 +541,10 @@
             'الْخِرَافُ تَعِيشُ فِي الْحَقْلِ',
             'الذِّئْبُ حَيَوَانٌ ذَكِيٌّ وَخَطِرٌ',
             'الْأَرْنَبُ سَرِيعٌ وَخَجُولٌ',
-            'الْبَحْرُ يَحْتَوِي عَلَى كَثِي
+            'الْبَحْرُ يَحْتَوِي عَلَى كَثِيرٍ مِنَ الْأَسْمَاكِ',
+            'السَّمَكَةُ تَسْبَحُ فِي الْمَاءِ',
+            'الْبُطْرِيقُ يَعِيشُ فِي الْمِنْطَقَةِ الْقُطْبِيَّةِ',
+            'الْجَمَلُ سَفِينَةُ الصَّحْرَاءِ',
+            'الْعُقَابُ طَائِرٌ قَوِيٌّ وَشُجَاعٌ',
+            'الْغَزَالُ رَشِيقٌ وَجَمِيلٌ',
+            'الْفَرَاشَةُ مُلَ
