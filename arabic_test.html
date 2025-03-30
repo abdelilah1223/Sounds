@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلم العربية -  </title>
+    <title>تعلم العربية - النسخة المحسنة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -247,6 +247,36 @@
             padding: 10px 15px;
         }
         
+        #browser-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 5px solid #ffeeba;
+            margin-bottom: 20px;
+        }
+        
+        #browser-warning h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        #browser-warning ul {
+            padding-right: 20px;
+            margin-top: 10px;
+        }
+        
+        #browser-warning a {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        #support-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: var(--warning-color);
+        }
+        
         @media (max-width: 600px) {
             .letter {
                 font-size: 3rem;
@@ -270,12 +300,30 @@
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
+            
+            #support-btn {
+                bottom: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1><i class="fas fa-language"></i> تعلم العربية</h1>
+        
+        <div id="browser-warning" class="card hidden">
+            <h3><i class="fas fa-exclamation-triangle"></i> تنبيه</h3>
+            <p>يبدو أن متصفحك لا يدعم اللغة العربية بشكل كامل. للتجربة المثلى:</p>
+            <ul>
+                <li>تأكد من تثبيت حزمة اللغة العربية لنظامك</li>
+                <li>جرّب استخدام متصفح Chrome أو Edge</li>
+                <li>يمكنك تنزيل <a href="https://support.google.com/chrome/answer/105179?hl=ar" target="_blank">إضافة صوت عربي</a></li>
+                <li>في Windows 10/11: اذهب إلى الإعدادات > الوقت واللغة > اللغة وأضف العربية</li>
+            </ul>
+        </div>
         
         <div class="tabs">
             <div class="tab active" onclick="showTab('letters')">
@@ -421,6 +469,10 @@
         </div>
     </div>
 
+    <button id="support-btn" onclick="showSupportInfo()">
+        <i class="fas fa-question-circle"></i> دعم العربية
+    </button>
+
     <script>
         // بيانات الموقع
         const arabicLetters = ['أ', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'];
@@ -429,7 +481,7 @@
             'كِتَاب', 'قَلَم', 'مَكْتَب', 'بَيْت', 'شَجَرَة', 'سَيَّارَة', 'حَقِيبَة', 'طَاوِلَة', 'كُرْسِي', 'نافِذَة',
             'بَاب', 'سَاعَة', 'جَوَّال', 'حَاسُوب', 'تِلْفَاز', 'ثَلَّاجَة', 'غُرْفَة', 'مَطْبَخ', 'حَمَّام', 'سَرِير',
             'مِفْتَاح', 'مِصْبَاح', 'سِكِّين', 'شَوْكَة', 'مِلْعَقَة', 'صَحْن', 'كُوب', 'إِبْرِيق', 'سَجَّادَة', 'مِرْآة',
-            'مِكْنَسَة', 'مِكْواة', 'غَسَّالَة', 'مِجَفَّف', 'خِزَانَة', 'دُولَ��ب', 'رِفّ', 'سُلَّم', 'مِصْعَد', 'بِسْكُوت',
+            'مِكْنَسَة', 'مِكْواة', 'غَسَّالَة', 'مِجَفَّف', 'خِزَانَة', 'دُولَاب', 'رِفّ', 'سُلَّم', 'مِصْعَد', 'بِسْكُوت',
             'خُبْز', 'جُبْن', 'لَبَن', 'مَاء', 'عَصِير', 'شَاي', 'قَهْوَة', 'سُكَّر', 'مِلْح', 'فُلْفُل',
             'لَحْم', 'دَجَاج', 'سَمَك', 'أَرُزّ', 'مَعْكَرُونَة', 'خُضَار', 'فَاكِهَة', 'تُفَّاح', 'مَوْز', 'عِنَب',
             'بُرْتُقَال', 'فَرَاوْلَة', 'خِيَار', 'طَمَاطِم', 'بَصَل', 'ثُوم', 'بَطَاطِس', 'جَزَر', 'كُرُنْب', 'خَسّ',
@@ -437,7 +489,6 @@
             'حَلْي', 'سَاعَة', 'خَاتَم', 'قِلَادَة', 'أُذُن', 'حَقِيبَة', 'نَظَّارَة', 'مِشْط', 'فُرْشَاة', 'مَعْجُون',
             'صَابُون', 'شامْبو', 'مُنَادِيل', 'فَوطَة', 'لُوشن', 'عِطْر', 'دِهْب', 'كُحْل', 'إِسْفِنْج', 'دَلْو'
         ];
-        
         
         const arabicSentences = [
             'الْكِتَابُ عَلَى الْمَكْتَبِ',
@@ -461,7 +512,7 @@
             'أَسْكُنُ فِي شَقَّةٍ فِي الْمَدِينَةِ',
             'عِنْدِي كَلْبٌ صَغِيرٌ وَلَطِيفٌ',
             'الْقِطُّ يَنَامُ عَلَى السَّرِيرِ',
-            'أَ��ْهَبُ إِلَى الْعَمَلِ كُلَّ صَبَاحٍ',
+            'أَذْهَبُ إِلَى الْعَمَلِ كُلَّ صَبَاحٍ',
             'أُرِيدُ أَنْ أَزُورَ الْأَقَارِبَ',
             'الْعُطْلَةُ فِي نِهَايَةِ الْأُسْبُوعِ',
             'أُحِبُّ السَّفَرَ إِلَى الْبِلَادِ الْجَدِيدَةِ',
@@ -490,312 +541,4 @@
             'الْخِرَافُ تَعِيشُ فِي الْحَقْلِ',
             'الذِّئْبُ حَيَوَانٌ ذَكِيٌّ وَخَطِرٌ',
             'الْأَرْنَبُ سَرِيعٌ وَخَجُولٌ',
-            'الْبَحْرُ يَحْتَوِي عَلَى كَثِيرٍ مِنَ الْأَسْمَاكِ',
-            'السَّمَكَةُ تَسْبَحُ فِي الْمَاءِ',
-            'الْبُطْرِيقُ يَعِيشُ فِي الْمِنْطَقَةِ الْقُطْبِيَّةِ',
-            'الْج��مَلُ سَفِينَةُ الصَّحْرَاءِ',
-            'الْعُقَابُ طَائِرٌ قَوِيٌّ وَشُجَاعٌ',
-            'الْغَزَالُ رَشِيقٌ وَجَمِيلٌ',
-            'الْفَرَاشَةُ مُلَوَّنَةٌ وَرَقِيقَةٌ',
-            'النَّحْلَةُ تَصْنَعُ الْعَسَلَ',
-            'الْعَنْكَبُوتُ يَنْسُجُ الْخُيُوطَ',
-            'الْجَرَادُ يَأْكُلُ النَّبَاتَ',
-            'الضِّفْدَعُ يَعِيشُ فِي الْمَاءِ وَعَلَى الْيَابِسَةِ',
-            'الْأَفْعَى حَيَوَانٌ خَطِرٌ وَسَامٌ',
-            'الْبَعُوضُ يَلْدَغُ وَيُزْعِجُ',
-            'الْفَأْرُ صَغِيرٌ وَسَرِيعٌ',
-            'الْقِرْدُ ذَكِيٌّ وَمُضْحِكٌ',
-            'الْبَبَّغَاءُ يَتَكَلَّمُ وَيُقَلِّدُ الْأَصْوَاتَ',
-            'الْحَمَامَةُ طَائِرُ السَّلَامِ',
-            'الْبُومَةُ تَرَى فِي اللَّيْلِ',
-            'الْخُفَّاشُ يَطِيرُ فِي الظَّلَامِ',
-            'الْكَلْبُ صَدِيقُ الْإِنْسَانِ',
-            'الْقِطُّ مُسْتَقِلٌّ وَنَظِيفٌ',
-            'الْأَرَضُ خِصْبَةٌ وَتُنْبِتُ النَّبَاتَ',
-            'الْمَطَرُ يُنْعِشُ الْأَرْضَ',
-            'النَّهْرُ يَجْرِي إِلَى الْبَحْرِ',
-            'الْبُحَيْرَةُ هَادِئَةٌ وَجَمِيلَةٌ',
-            'الشَّلَّالُ رَائِعٌ وَمُهَيْبٌ',
-            'الرِّيَاحُ تَهُبُّ فِي الْخَرِيفِ',
-            'الْعَاصِفَةُ قَوِيَّةٌ وَمُخِيفَةٌ',
-            'الضَّبَابُ يُغَطِّي الْمَدِينَةَ',
-            'الْبَرَدُ يَسْقُطُ فِي الشِّتَاءِ',
-            'الثَّلْجُ أَبْيَضٌ وَنَاعِمٌ',
-            'الْبَرْقُ يَلْمَعُ فِي السَّمَاءِ',
-            'الرَّعْدُ يُصْدِرُ صَوْتًا قَوِيًّا',
-            'الْقَوْسُ قُزَحَ مُلَوَّنٌ وَجَمِيلٌ',
-            'الْغَيْمُ يُحَجِّبُ الشَّمْسَ',
-            'الْكَوْكَبُ يُضِيءُ فِي اللَّيْلِ',
-            'الْمَجَرَّةُ كَبِيرَةٌ وَوَاسِعَةٌ',
-            'الْفَضَاءُ لَا حَدَّ لَهُ',
-            'الرَّحَلَاتُ الْفَضَائِيَّةُ مُثِيرَةٌ',
-            'الرَّائِدُ شُجَاعٌ وَمُهَنَّدِسٌ',
-            'الْقَمَرُ الصِّنَاعِيُّ يُسَاعِدُ فِي الْاتِّصَالَاتِ',
-            'الطَّائِرَةُ تَطِيرُ فِي الْجَوِّ',
-            'الْقِطَارُ يَسِيرُ عَلَى الْقَضْبَانِ',
-            'الْحَافِلَةُ تَنْقُلُ الرُّكَّابَ',
-            'السَّيَّارَةُ سَرِيعَةٌ وَمُرِيحَةٌ',
-            'الْبَاخِرَةُ تَسْبَحُ فِي الْبَحْرِ',
-            'الْغَوَّاصَةُ تَغُوصُ فِي أَعْمَاقِ الْبِحَارِ',
-            'الْجِسْرُ يَصِلُ بَيْنَ الضِّفَّتَيْنِ',
-            'الطَّرِيقُ يَصِلُ بَيْنَ الْمَدَائِنِ',
-            'الْمُدُنُ كَبِيرَةٌ وَمَزْدَحِمَةٌ',
-            'الْقُرَى هَادِئَةٌ وَجَمِيلَةٌ',
-            'الْحَضَارَةُ تَتَطَوَّرُ بِاسْتِمْرَارٍ',
-            'التَّارِيخُ يُعَلِّمُنَا الدُّرُوسَ',
-            'الْمُسْتَقْبَلُ مَلِيءٌ بِالْأَمَلِ'
-        ];
-        
-        // متغيرات التطبيق
-        let currentLetterIndex = 0;
-        let currentWordIndex = 0;
-        let currentSentenceIndex = 0;
-        let speechSynth = window.speechSynthesis;
-        let voices = [];
-        let testItems = [];
-        let currentTestItemIndex = 0;
-        let timerInterval;
-        let timeLeft = 60;
-        
-        // تهيئة الأصوات
-        function loadVoices() {
-            voices = speechSynth.getVoices();
-        }
-        
-        speechSynth.onvoiceschanged = loadVoices;
-        loadVoices();
-        
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            updateLetter();
-            updateWord();
-            updateSentence();
-        });
-        
-        // تبديل الأقسام
-        function showTab(tabName) {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
-            
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(`${tabName}-section`).classList.add('active');
-            
-            // إيقاف أي اختبار جاري عند تبديل الأقسام
-            if (tabName !== 'letters' && document.getElementById('letter-test').classList.contains('active')) {
-                endTest('letter');
-            }
-            if (tabName !== 'words' && document.getElementById('word-test').classList.contains('active')) {
-                endTest('word');
-            }
-            if (tabName !== 'sentences' && document.getElementById('sentence-test').classList.contains('active')) {
-                endTest('sentence');
-            }
-        }
-        
-        // تشغيل العنصر الحالي (حرف/كلمة/جملة)
-        function playCurrentItem(type) {
-            const element = document.getElementById(`current-${type}`);
-            speakText(element.textContent, type);
-        }
-        
-        // تشغيل العنصر في وضع الاختبار
-        function playTestItem(type) {
-            const element = document.getElementById(`test-${type}`);
-            speakText(element.textContent, type);
-        }
-        
-        // دالة عامة للتحدث بالنص
-        function speakText(text, type) {
-            speechSynth.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.voice = voices.find(voice => voice.lang.includes('ar')) || null;
-            utterance.rate = 0.9;
-            utterance.pitch = 1;
-            utterance.lang = 'ar-SA';
-            
-            utterance.onstart = () => {
-                showFeedback(type, 'جار تشغيل الصوت...', 'success');
-            };
-            
-            utterance.onerror = () => {
-                showFeedback(type, 'حدث خطأ في تشغيل الصوت', 'error');
-            };
-            
-            speechSynth.speak(utterance);
-        }
-        
-        // التنقل بين الحروف
-        function nextLetter() {
-            currentLetterIndex = (currentLetterIndex + 1) % arabicLetters.length;
-            updateLetter();
-        }
-        
-        function prevLetter() {
-            currentLetterIndex = (currentLetterIndex - 1 + arabicLetters.length) % arabicLetters.length;
-            updateLetter();
-        }
-        
-        function updateLetter() {
-            document.getElementById('current-letter').textContent = arabicLetters[currentLetterIndex];
-            document.getElementById('letter-counter').textContent = currentLetterIndex + 1;
-        }
-        
-        // كلمات عشوائية
-        function nextRandomWord() {
-            const newIndex = Math.floor(Math.random() * arabicWords.length);
-            currentWordIndex = newIndex !== currentWordIndex ? newIndex : (newIndex + 1) % arabicWords.length;
-            updateWord();
-        }
-        
-        function updateWord() {
-            document.getElementById('current-word').textContent = arabicWords[currentWordIndex];
-            document.getElementById('word-counter').textContent = currentWordIndex + 1;
-        }
-        
-        // جمل عشوائية
-        function nextRandomSentence() {
-            const newIndex = Math.floor(Math.random() * arabicSentences.length);
-            currentSentenceIndex = newIndex !== currentSentenceIndex ? newIndex : (newIndex + 1) % arabicSentences.length;
-            updateSentence();
-        }
-        
-        function updateSentence() {
-            document.getElementById('current-sentence').textContent = arabicSentences[currentSentenceIndex];
-            document.getElementById('sentence-counter').textContent = currentSentenceIndex + 1;
-        }
-        
-        // بدء الاختبار
-        function startTest(type) {
-            // إخفاء واجهة الممارسة وإظهار واجهة الاختبار
-            document.getElementById(`${type}-practice`).classList.add('hidden');
-            document.getElementById(`${type}-test`).classList.add('active');
-            
-            // إنشاء مجموعة أسئلة عشوائية
-            testItems = [...(type === 'letter' ? arabicLetters : type === 'word' ? arabicWords : arabicSentences)];
-            shuffleArray(testItems);
-            currentTestItemIndex = 0;
-            
-            // عرض السؤال الأول
-            showTestQuestion(type);
-            
-            // بدء المؤقت
-            startTimer(type);
-        }
-        
-        // عرض سؤال الاختبار
-        function showTestQuestion(type) {
-            const testElement = document.getElementById(`test-${type}`);
-            const inputElement = document.getElementById(`${type}-input`);
-            
-            testElement.textContent = testItems[currentTestItemIndex];
-            inputElement.value = '';
-            document.getElementById(`${type}-test-counter`).textContent = currentTestItemIndex + 1;
-            document.getElementById(`${type}-feedback`).style.display = 'none';
-            
-            // تشغيل الصوت تلقائياً
-            setTimeout(() => playTestItem(type), 500);
-        }
-        function compareArabicText(text1, text2) {
-  // إزالة التشكيل (الحركات) من النصوص
-  const removeTashkeel = str => str.replace(/[\u064B-\u065F\u0610-\u061A\u0670]/g, '');
-  
-  // إزالة الأحرف الخاصة والفواصل
-  const removeSpecialChars = str => str.replace(/[،؛؟ـ’'",.!?\-]/g, '');
-  
-  // تنظيف النصوص
-  const cleanText1 = removeSpecialChars(removeTashkeel(text1)).trim();
-  const cleanText2 = removeSpecialChars(removeTashkeel(text2)).trim();
-  
-  // المقارنة بعد التنظيف
-  return cleanText1 === cleanText2;
-}
-        // التحقق من الإجابة
-        function checkAnswer(type) {
-            const userAnswer = document.getElementById(`${type}-input`).value.trim();
-            const correctAnswer = document.getElementById(`test-${type}`).textContent;
-            if (compareArabicText(userAnswer, correctAnswer)) {
-  showFeedback(type, 'إجابة صحيحة! أحسنت!', 'success');
-                setTimeout(() => {
-                    nextTestQuestion(type);
-                }, 1500);
-} else {
-                showFeedback(type, 'إجابة خاطئة. حاول مرة أخرى.', 'error');
-                playTestItem(type); // إعادة تشغيل الصوت
-            }
-        }
-        
-        // الانتقال لسؤال الاختبار التالي
-        function nextTestQuestion(type) {
-            if (currentTestItemIndex < testItems.length - 1) {
-                currentTestItemIndex++;
-                showTestQuestion(type);
-                resetTimer(type);
-            } else {
-                endTest(type);
-                showFeedback(type, 'لقد أكملت جميع أسئلة الاختبار!', 'success');
-            }
-        }
-        
-        // إنهاء الاختبار
-        function endTest(type) {
-            clearInterval(timerInterval);
-            document.getElementById(`${type}-practice`).classList.remove('hidden');
-            document.getElementById(`${type}-test`).classList.remove('active');
-            document.getElementById(`${type}-feedback`).style.display = 'none';
-        }
-        
-        // بدء المؤقت
-        function startTimer(type) {
-            timeLeft = 60;
-            updateTimerDisplay(type);
-            
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay(type);
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    showFeedback(type, 'انتهى الوقت!', 'error');
-                    nextTestQuestion(type);
-                }
-            }, 1000);
-        }
-        
-        // إعادة تعيين المؤقت
-        function resetTimer(type) {
-            clearInterval(timerInterval);
-            startTimer(type);
-        }
-        
-        // تحديث عرض المؤقت
-        function updateTimerDisplay(type) {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById(`${type}-timer`).textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        // عرض التغذية الراجعة
-        function showFeedback(type, message, feedbackType) {
-            const feedbackElement = document.getElementById(`${type}-feedback`);
-            feedbackElement.textContent = message;
-            feedbackElement.className = `feedback ${feedbackType}`;
-            feedbackElement.style.display = 'block';
-        }
-        
-        // خلط العناصر في المصفوفة عشوائياً
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-    </script>
-</body>
-</html>
+            'الْبَحْرُ يَحْتَوِي عَلَى كَثِي
